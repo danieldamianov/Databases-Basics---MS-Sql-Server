@@ -1,0 +1,45 @@
+CREATE TABLE Users(
+Id BIGINT PRIMARY KEY IDENTITY,
+Username VARCHAR(30) UNIQUE NOT NULL,
+Password VARCHAR(26) NOT NULL,
+ProfilePicture VARBINARY(MAX) CHECK(DATALENGTH(ProfilePicture) < 900 * 1024),
+LastLoginTime DATETIME,
+isDeleted BIT
+)
+
+INSERT INTO Users VALUES
+('danimontana5','0246293242',NULL,'2017-08-29',1),
+('danimontana1','0246293242',NULL,'2017-08-29',1),
+('danimontana2','0246293242',NULL,'2017-08-29',1),
+('danimontana3','0246293242',NULL,'2017-08-29',1),
+('danimontana4','0246293242',NULL,'2017-08-29',1)
+
+ALTER TABLE Users 
+DROP CONSTRAINT PK__Users__3214EC0703D1C7A5
+
+ALTER TABLE Users
+ADD CONSTRAINT PK_Users PRIMARY KEY(Id,Username)
+
+ALTER TABLE Users
+ADD CONSTRAINT CHK_Password_Users CHECK(LEN([Password]) > 5)
+
+INSERT INTO Users VALUES
+('sex','02',NULL,'2017-08-29',1)
+
+ALTER TABLE Users
+ADD DEFAULT(CURRENT_TIMESTAMP) FOR LastLoginTime
+
+INSERT INTO Users(Username,Password,ProfilePicture,isDeleted) VALUES
+('sex','02asdasdasd',NULL,1)
+
+ALTER TABLE Users
+DROP CONSTRAINT PK_Users
+
+ALTER TABLE Users
+ADD CONSTRAINT PK_Users PRIMARY KEY(Id)
+
+ALTER TABLE Users
+ADD CONSTRAINT CHK_Username_Users CHECK(LEN(Username) >= 3)
+
+INSERT INTO Users(Username,Password,ProfilePicture,isDeleted) VALUES
+('ex','02asdasdasd',NULL,1) 
